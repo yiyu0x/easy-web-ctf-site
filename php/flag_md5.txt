@@ -1,0 +1,1 @@
+LSA-FLAG{ md5 in php is not safe ^_< }
