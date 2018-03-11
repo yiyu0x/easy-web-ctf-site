@@ -1,40 +1,37 @@
-
 <?php
-	$db_ip="localhost";
-	$db_account="newuser";
-	$db_passwd="123";
+	$db_host="localhost";
+	$db_user="newuser";
+	$db_pass="123";
 	$db_name="my_db";
-
-	$username=$_POST['username'];
-	$userpasswd=$_POST['passwd'];
-
-	$db_link=@mysqli_connect($db_ip,$db_account,$db_passwd,$db_name);
-	if(mysqli_connect_errno()){
-		die("資料庫連線失敗<br>");
-	}else{
-		echo"資料庫連線成功<br>";
-	}
+	$flag = "LSA {sqli is great?!}";
 
 
-	
-
-
-		
-    //然後選擇資料庫
-    $seldb=mysql_select_db($db_name) or die("DB connection failed!");
-    $sql="select * from accout where name = {$username}";     
-    //進行撈資料
-    $result=mysql_query($sql);
-    //把撈出來的資料讀取出來
-    $row_result=mysql_fetch_assoc($result);
-    //如果表單中的名稱是有值的
-    if(isset($username))
-    {
-        //將讀取出來的資料取出欄位名稱為username的資料，並且存在$admin
-        $admin=$row_result["username"];
-        if($username==$admin)
-        {
-            echo "歡迎".$_POST["username"]." 登入(參數傳遞)"."<br><span style="font-size: 12pt;">";
-        }
-    }
+		if(!empty($_POST['username']) && !empty($_POST['password'])) {
+		    $connection = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', $db_host, $db_name);
+		    $db = new PDO($connection, $db_user, $db_pass);
+		    $sql = sprintf("SELECT * FROM `account` WHERE `name` = '%s' AND `passwd` = '%s'",
+		        $_POST['username'],
+		        $_POST['password']
+		    );
+		    try {
+		        $query = $db->query($sql);
+		        if($query) {
+		            $user = $query->fetchObject();
+		        } else {
+		            $user = false;
+		        }
+		    } catch(Exception $e) {
+		        $user = false;
+		    }
+		}
 ?>
+<?php if(!$user): ?>
+<?php if($user === false): ?>
+<?=$sql?>
+<div class="alert alert-danger">login fail</div>
+<?php endif; ?>
+<?php else: ?>
+<h3>Hi, <?=htmlentities($user->name)?></h3>
+<h4><?=sprintf("You %s admin!", $user->name === "admin" ? "are" : "are not")?></h4>
+<?php if($user->name === "admin") printf("%s %s", htmlentities("hello admin this is your flag :"),$flag); ?>
+<?php endif; ?>
