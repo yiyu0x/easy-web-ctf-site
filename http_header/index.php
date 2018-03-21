@@ -12,7 +12,7 @@
 		echo "you hacked it!"."<br>";
 		system("cat flag");
 	}else{
-		echo "sorry , I only welcome 127.0.0.1";
+		echo "sorry , Im only welcome 127.0.0.1";
 	}
 	
 ?>
