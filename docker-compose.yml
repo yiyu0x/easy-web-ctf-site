@@ -10,6 +10,8 @@ services:
       MYSQL_PASSWORD: 123
     ports:
       - "9906:3306"
+    volumes:
+      - ./src/mysql/:/var/lib/mysql/
   web:
     image: php:7.2.2-apache
     container_name: php_web
