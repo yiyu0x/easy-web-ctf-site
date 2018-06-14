@@ -1,26 +1,23 @@
-version: "2"
-services:
-    www:
-        build: .
-        ports: 
-            - "8001:80"
-        volumes:
-            - ./www:/var/www/html/
-        links:
-            - db
-        networks:
-            - default
-    db:
-        image: mysql
-        ports: 
-            - "3306:3306"
-        environment:
-            MYSQL_DATABASE: my_db
-            MYSQL_USER: newuser
-            MYSQL_PASSWORD: 123
-            MYSQL_ROOT_PASSWORD: 123
-        volumes:
-            - ./src/ctf.sql:/docker-entrypoint-initdb.d
-        networks:
-            - default
+version: '3'
 
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: my_db
+      MYSQL_USER: newuser
+      MYSQL_PASSWORD: 123
+    ports:
+      - "9906:3306"
+  web:
+    image: php:7.2.2-apache
+    container_name: php_web
+    depends_on:
+      - db
+    volumes:
+      - ./www/:/var/www/html/
+    ports:
+      - "8100:80"
+    stdin_open: true
+    tty: true
