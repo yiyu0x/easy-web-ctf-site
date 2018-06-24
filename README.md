@@ -1,1 +1,4 @@
-docker testing
+# steup
+
+1. clone this repo
+> git clone 
