@@ -1,0 +1,15 @@
+FROM php:7.0.16-apache
+
+RUN apt-get update && \
+    apt-get install -y \
+        zlib1g-dev
+
+RUN apt-get install -y \
+        libxml2-dev
+
+RUN /usr/local/bin/docker-php-ext-install mysqli pdo pdo_mysql zip xmlwriter
+RUN apt-get install libssl-dev -y
+
+
+
+RUN /usr/local/bin/docker-php-ext-install zip
