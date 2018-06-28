@@ -1,0 +1,8 @@
+#FROM mysql:5.7
+#COPY setup.sh /mysql/setup.sh
+#COPY setup.sql /mysql/setup.sql
+#RUN chmod+x /mysql/setup.sh
+#RUN /mysql/setup.sh	
+
+FROM mysql:5.7
+ADD ./src/dump.sql /docker-entrypoint-initdb.d
