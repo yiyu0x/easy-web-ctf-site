@@ -1,7 +1,7 @@
 <?php
 	$db_host="mysql:3306";
-	$db_user="root";
-	$db_pass="123";
+	$db_user="newuser";
+	$db_pass="newpassword";
 	$db_name="my_db1";
 	$flag = "LSA {sqli is great?!}";
 
