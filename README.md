@@ -2,7 +2,7 @@
 
 1. clone this repo
 
-> git clone https://github.com/yiyu0x/LSA_web_security.git
+> git clone https://github.com/yiyu0x/easy-web-ctf-site
 
 > cd LSA_web_security
 
